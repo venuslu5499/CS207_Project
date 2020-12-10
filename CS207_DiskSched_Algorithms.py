@@ -1,10 +1,5 @@
 import math
 
-#completion_time = []
-#turnaround_time = []
-#waiting_time = []
-#processes = []
-
 request_sequence = []
 
 def get_difference(request_sequence, current_position, difference):

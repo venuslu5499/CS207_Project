@@ -55,7 +55,7 @@ def input_nonpre_scheduling_algorithm():
 def input_request_sequence(num_request):
     request_sequence = []
     for i in range(1, num_request+1):
-        location = input("Loc1"+str(i)+": ")
+        location = input("Loc "+str(i)+": ")
         request_sequence.append(int(location))
     return request_sequence
 
@@ -130,7 +130,7 @@ while program == True:
                         break
 
     elif scheduling == "2":
-        current_position = int(input("Input current position:"))
+        current_position = int(input("Input current position: "))
         track_size = int(input("Input track size: "))
         seek_rate = int(input("Input seek rate: "))
         num_request = int(input("Input number of request [max of 10]: "))

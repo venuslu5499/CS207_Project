@@ -34,11 +34,12 @@ def input_priority_number(num_process):
 def input_scheduling_algorithm():
     print("Input Individual Burst Time")
     print("CPU Scheduling Algorithm: \n"
-          + "[A] Shortest Remaining Time First (SRTF) \n"
-          + "[B] First Come First Serve (FCFS) \n"
-          + "[C] Priority (Non-Preemptive) \n"
-          + "[D] Shortest Job First (SJF) \n"
-          + "[E] Exit ")
+        +"[A] Shortest Remaining Time First (SRTF) \n"
+        +"[B] First Come First Serve (FCFS) \n"
+        +"[C] Priority (Non-Preemptive) \n"
+        +"[D] Shortest Job First (SJF) \n"
+        +"[E] Round Robin (RR) \n"
+        +"[F] Exit ")
     algorithm = input("Enter Choice: ")
     return algorithm
 
@@ -88,6 +89,10 @@ while program == True:
             nonpre.SJF_time(num_process, arrival_time, burst_time)
 
         elif algorithm == "E":
+            quantum = int(input("Input time slice: "))
+            pre.RR_time(num_process, arrival_time, burst_time, quantum)
+
+        elif algorithm == "F":
             again = input("Input Again (y/n)? ")
             if again == "y":
                 continue

@@ -40,8 +40,46 @@ def FCFS_time(num_processes, arrival_time, burst_time):
     print(sum(waiting_time)/len(waiting_time))
     print(sum(turnaround_time)/len(turnaround_time))
 
-def SJF_time():  
-    pass
+def SJF_time(num_processes, arrival_time, burst_time):  
+    for i in range(num_processes):
+        completion_time.append(0)
+        turnaround_time.append(0)
+        waiting_time.append(0)
+
+    for i in range(num_processes):
+        for j in range(num_processes):
+            if arrival_time[i] < arrival_time[j]:
+                temp = arrival_time[j]
+                arrival_time[j] = arrival_time[i]
+                arrival_time[i] = temp
+                temp = burst_time[j]
+                burst_time[j] = burst_time[i]
+                burst_time[i] = temp
+    
+    for i in range(num_processes):
+        pos = i
+        limit = i+1
+        for j in range(limit, num_processes):
+            if burst_time[j] < burst_time[pos]:
+                pos = j
+        
+        temp = burst_time[i]
+        burst_time[i] = burst_time[pos]
+        burst_time[pos] = temp
+
+    waiting_time[0] = 0
+    for i in range(num_processes):
+        waiting_time[i] = 0
+        for j in range(i):
+            waiting_time[i] += burst_time[j]
+    
+    for i in range(num_processes):
+        turnaround_time[i] = burst_time[i] + waiting_time[i]
+
+    print(waiting_time)
+    print(turnaround_time)
+    print(sum(waiting_time)/len(waiting_time))
+    print(sum(turnaround_time)/len(turnaround_time))
 
 def Prio_time(num_processes, arrival_time, burst_time, priority):  
     for i in range(num_processes):

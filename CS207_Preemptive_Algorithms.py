@@ -74,7 +74,7 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         completion_time[smallest] = end
         waiting_time[smallest] = end - arrival_time[smallest] - processes[smallest]
         turnaround_time[smallest] = end - arrival_time[smallest]
-        
+
     print(completion_time)
     print(waiting_time)
     print(turnaround_time)
@@ -83,7 +83,7 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
 
 
 def P_Prio_time():  
-    #Andrea
+    #Alex
     pass
 
 

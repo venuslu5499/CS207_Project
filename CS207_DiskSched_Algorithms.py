@@ -1,9 +1,25 @@
 import math
 
-completion_time = []
-turnaround_time = []
-waiting_time = []
-processes = []
+#completion_time = []
+#turnaround_time = []
+#waiting_time = []
+#processes = []
+
+request_sequence = []
+
+def get_difference(request_sequence, current_position, difference):
+    for i in range(len(difference)):
+        difference[i][0] = abs(request_sequence[i]-current_position)
+
+def find_shortest_distance(difference):
+    index = -1
+    min = 999999999
+    for i in range(len(difference)):
+        if (not difference[i][1] and 
+                min > difference[i][0]): 
+            min = difference[i][0] 
+            index = i 
+    return index   
 
 def FCFS_time(num_requests, current_position, request_locations):
     seek_count = 0
@@ -21,38 +37,19 @@ def FCFS_time(num_requests, current_position, request_locations):
     print("Seek Time: ", (seek_count/num_requests))
 
 
-def SSTF_time(num_processes, arrival_time, burst_time): 
+def SSTF_time(current_position, track_size, seek_rate, request_sequencee): 
+   pass
+
+def Scan_time(current_position, track_size, seek_rate, request_sequence):  
     pass
 
-def Scan_time(num_processes, arrival_time, burst_time):  
+def Look_time(current_position, track_size, seek_rate, request_sequence):  
     pass
 
-def Look_time(num_processes, arrival_time, burst_time):  
+def CScan_time(current_position, track_size, seek_rate, request_sequence):  
     pass
 
-def CScan_time(num_processes, arrival_time, burst_time):  
+def CLook_time(current_position, track_size, seek_rate, request_sequence):  
     pass
 
-def CLook_time(num_processes, arrival_time, burst_time):  
-    pass
 
-def input_request_locations(num_requests):
-    request_locations = []
-    print("Input Individual Request Location")
-    for i in range(1, num_requests+1):
-        req = input("Loc" +str(i) +": ")
-        request_locations.append(int(req))
-    return request_locations
-
-program = True
-while program == True:
-    num_requests = int(input("Input no. of requests [max. of 10]: "))
-    if num_requests < 1 or num_requests > 10:
-        print("Must be a number between 1-10")
-    else:
-        current_position = int(input("Input current position: "))
-        track_size = int(input("Input track size: "))
-        seek_rate = int(input("Input seek rate: "))
-        request_locations = input_request_locations(num_requests)
-        FCFS_time(num_requests, current_position, request_locations)
-    program = False

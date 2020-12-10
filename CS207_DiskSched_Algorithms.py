@@ -44,15 +44,15 @@ def input_request_locations(num_requests):
         request_locations.append(int(req))
     return request_locations
 
-program = True
-while program == True:
-    num_requests = int(input("Input no. of requests [max. of 10]: "))
-    if num_requests < 1 or num_requests > 10:
-        print("Must be a number between 1-10")
-    else:
-        current_position = int(input("Input current position: "))
-        track_size = int(input("Input track size: "))
-        seek_rate = int(input("Input seek rate: "))
-        request_locations = input_request_locations(num_requests)
-        FCFS_time(num_requests, current_position, request_locations)
-    program = False
+# program = True
+# while program == True:
+#     num_requests = int(input("Input no. of requests [max. of 10]: "))
+#     if num_requests < 1 or num_requests > 10:
+#         print("Must be a number between 1-10")
+#     else:
+#         current_position = int(input("Input current position: "))
+#         track_size = int(input("Input track size: "))
+#         seek_rate = int(input("Input seek rate: "))
+#         request_locations = input_request_locations(num_requests)
+#         FCFS_time(num_requests, current_position, request_locations)
+#     program = False

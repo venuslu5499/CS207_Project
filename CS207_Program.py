@@ -31,16 +31,23 @@ def input_priority_number(num_process):
     return priority_num
 
 
-def input_scheduling_algorithm():
+def input_pre_scheduling_algorithm():
     print("Input Individual Burst Time")
     print("CPU Scheduling Algorithm: \n"
         +"[A] Shortest Remaining Time First (SRTF) \n"
-        +"[B] First Come First Serve (FCFS) \n"
-        +"[C] Priority (Non-Preemptive) \n"
-        +"[D] Shortest Job First (SJF) \n"
-        +"[E] Round Robin (RR) \n"
-        +"[F] Shortest Job First (SJF) \n"
-        +"[G] Exit ")
+        +"[B] Round Robin (RR) \n"
+        +"[C] Priority (P-Prio) \n"
+        +"[D] Exit")
+    algorithm = input("Enter Choice: ")
+    return algorithm
+
+def input_nonpre_scheduling_algorithm():
+    print("Input Individual Burst Time")
+    print("CPU Scheduling Algorithm: \n"
+        +"[A] First Come First Serve (FCFS) \n"
+        +"[B] Shortest Job First (SJF) \n"
+        +"[C] Priority (Prio) \n"
+        +"[D] Exit")
     algorithm = input("Enter Choice: ")
     return algorithm
 
@@ -65,108 +72,92 @@ def input_disk_scheduling_algorithm():
     disk_sched_algorithm = input("Enter Choice: ")
     return disk_sched_algorithm
 
-
 program = True
 while program == True:
-    num_process = int(input("Input no. of Processes [2-9]: "))
-    if num_process < 2 or num_process > 9:
-        print("Must be a number between 2-9")
-    else:
-        arrival_time = input_arrival_time(num_process)
-        burst_time = input_burst_time(num_process)
-        algorithm = input_scheduling_algorithm()
+    scheduling = input("\nChoose Scheduling Type: \n" #Choose the scheduling type
+                        + "[1] CPU Scheduling \n"
+                        + "[2] Disk Scheduling \n"
+                        + "Input: ")
 
-        if algorithm == "A":
-            pre.SRTF_time(num_process, arrival_time, burst_time)
-
-        elif algorithm == "B":
-            nonpre.FCFS_time(num_process, arrival_time, burst_time)
-
-        elif algorithm == "C":
-            priority = input_priority_number(num_process)
-            nonpre.Prio_time(num_process, arrival_time, burst_time, priority)
-
-        elif algorithm == "D":
-            nonpre.SJF_time(num_process, arrival_time, burst_time)
-
-        elif algorithm == "E":
-            quantum = int(input("Input time slice: "))
-            pre.RR_time(num_process, arrival_time, burst_time, quantum)
-
-        elif algorithm == "F":
-            nonpre.SJF_time(num_process, arrival_time, burst_time)
-
-        elif algorithm == "G":
-            again = input("Input Again (y/n)? ")
-            if again == "y":
-                continue
-            elif again == "n":
-                break
-
-# suggested flow
-program = True
-while program == True:
-    scheduling = input("Choose scheduling type: \n"
-                       + "[1] CPU Scheduling \n"
-                        + "[2] Disk Scheduling \n")
     if scheduling == "1":
+        cpu_scheduling = input("Choose CPU Scheduling Type: \n"  #Choose the cpu scheduling type
+                                + "[1] Preemptive \n"
+                                + "[2] Non-Preemptive \n"
+                                + "Input: ")
         num_process = int(input("Input no. of Processes [2-9]: "))
         if num_process < 2 or num_process > 9:
             print("Must be a number between 2-9")
         else:
-            arrival_time = input_arrival_time(num_process)
-            burst_time = input_burst_time(num_process)
-            algorithm = input_scheduling_algorithm()
+            if cpu_scheduling == "1":
+                arrival_time = input_arrival_time(num_process)
+                burst_time = input_burst_time(num_process)
+                algorithm = input_pre_scheduling_algorithm()  #Choose the preemptive cpu scheduling type
+           
+                if algorithm == "A":
+                    pre.SRTF_time(num_process, arrival_time, burst_time)
 
-            if algorithm == "A":
-                pre.SRTF_time(num_process, arrival_time, burst_time)
+                elif algorithm == "B":
+                    quantum = int(input("Input time slice: "))
+                    pre.RR_time(num_process, arrival_time, burst_time, quantum)
+                
+                elif algorithm == "D":
+                    again = input("Input Again (y/n)? ")
+                    if again == "y":
+                        continue
+                    elif again == "n":
+                        break
 
-            elif algorithm == "B":
-                nonpre.FCFS_time(num_process, arrival_time, burst_time)
+            elif cpu_scheduling == "2":
+                arrival_time = input_arrival_time(num_process)
+                burst_time = input_burst_time(num_process)
+                algorithm = input_nonpre_scheduling_algorithm() #Choose the non preemptive cpu scheduling type
 
-            elif algorithm == "C":
-                priority = input_priority_number(num_process)
-                nonpre.Prio_time(num_process, arrival_time,
-                                 burst_time, priority)
+                if algorithm == "A":
+                    nonpre.FCFS_time(num_process, arrival_time, burst_time)
+                
+                elif algorithm == "B":
+                    nonpre.SJF_time(num_process, arrival_time, burst_time)
 
-            elif algorithm == "D":
-                nonpre.SJF_time(num_process, arrival_time, burst_time)
+                elif algorithm == "C":
+                    priority = input_priority_number(num_process)
+                    nonpre.Prio_time(num_process, arrival_time, burst_time, priority)
 
-            elif algorithm == "E":
-                again = input("Input Again (y/n)? ")
-                if again == "y":
-                    continue
-                elif again == "n":
-                    break
+                elif algorithm == "D":
+                    again = input("Input Again (y/n)? ")
+                    if again == "y":
+                        continue
+                    elif again == "n":
+                        break
+
     elif scheduling == "2":
         current_position = int(input("Input current position:"))
         track_size = int(input("Input track size: "))
         seek_rate = int(input("Input seek rate: "))
         num_request = int(input("Input number of request [max of 10]: "))
-       
+
         if num_request > 10:
             print("The program will only be accepting a maximum of 10 requests.")
         else:
             request_sequence = input_request_sequence(num_request)
-            disk_algo = input_disk_scheduling_algorithm()
+            disk_algo = input_disk_scheduling_algorithm()  #Choose the disk scheduling type
             if disk_algo == "A":
-                disk.FCFS_time(current_position, track_size,
-                               seek_rate, request_sequence)
+                disk.FCFS_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "B":
-                disk.SSTF_time(current_position, track_size,
-                               seek_rate, request_sequence)
+                disk.SSTF_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "C":
-                disk.Scan_time(current_position, track_size,
-                               seek_rate, request_sequence)
+                disk.Scan_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "D":
-                disk.Look_time(current_position, track_size,
-                               seek_rate, request_sequence)
+                disk.Look_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "E":
-                disk.CScan_time(current_position, track_size,
-                                seek_rate, request_sequence)
+                disk.CScan_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "F":
-                disk.CLook_time(current_position, track_size,
-                                seek_rate, request_sequence)
+                disk.CLook_time(current_position, track_size, seek_rate, request_sequence)
+
             elif disk_algo == "G":
                 again = input("Input Again (y/n)? ")
                 if again == "y":

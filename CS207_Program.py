@@ -33,6 +33,7 @@ def input_scheduling_algorithm():
         +"[B] First Come First Serve (FCFS) \n"
         +"[C] Priority (Non-Preemptive) \n"
         +"[D] Shortest Job First (SJF) \n"
+        +"[E] Round Robin (RR) \n"
         +"[F] Exit ")
     algorithm = input("Enter Choice: ")
     return algorithm
@@ -59,6 +60,10 @@ while program == True:
         
         elif algorithm == "D":
             nonpre.SJF_time(num_process, arrival_time, burst_time)
+
+        elif algorithm == "E":
+            quantum = int(input("Input time slice: "))
+            pre.RR_time(num_process, arrival_time, burst_time, quantum)
 
         elif algorithm == "F":
             again = input("Input Again (y/n)? ")

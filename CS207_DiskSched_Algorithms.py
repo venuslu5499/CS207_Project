@@ -23,7 +23,7 @@ def FCFS_time(num_requests, current_position, request_locations):
 
     for i in range(num_requests):
         current_track = request_locations[i] 
-        distance = abs(current_track - current_position);
+        distance = abs(current_track - current_position)
         head_movement.append(abs(current_position - current_track))
         seek_count += distance
         current_position = current_track

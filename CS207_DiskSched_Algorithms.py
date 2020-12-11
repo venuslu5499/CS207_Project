@@ -65,14 +65,50 @@ def SSTF_time(current_position, track_size, request_sequence):
     #   print(seek_sequence[i])
     print("Seek Time:", average_seek_time)
 
-def Scan_time(current_position, track_size, seek_rate, request_sequence):  
-    pass
+def Scan_time(head, direction, track_size, request_sequence):  
+    num_request = len(request_sequence)
+    head_movement, distance, current_position = 0,0,0
+    left = []
+    right = []
+    
+    if direction == "left":
+        left.append(0)
+    elif direction == "right":
+        right.append(track_size-1)
 
-def Look_time(current_position, track_size, seek_rate, request_sequence):  
-    pass
-
-def CScan_time(current_position, track_size, seek_rate, request_sequence):  
-    pass
+    for i in range(num_request):
+        if (request_sequence[i] < head):
+            left.append(request_sequence[i])
+        if (request_sequence[i] > head):
+            right.append(request_sequence[i])
+    left.sort()
+    right.sort()
+    run = 2
+    while(run != 0):
+        if(direction == "left"):
+            for i in range(len(left)-1,-1,-1):
+                current_position = left[i]
+                request_sequence.append(current_position)
+                distance = abs(current_position-head)
+                head_movement += distance
+                head = current_position
+            direction == "right"
+        elif (direction == "right"):
+            for i in range(len(right)):
+                current_position = right[i]
+                request_sequence.append(current_position)
+                distance = abs(current_position - head)
+                head_movement += distance
+                head = current_position
+            direction = "left"
+        run -= 1
+    average_seek_time = head_movement/request_sequence
+    print("Total head movement: ", head_movement)
+    print("Seek sequence: ")
+    for i in range(len(request_sequence)):
+        print(request_sequence[i])
+    print("Seek time: ", average_seek_time)
+        
 
 def input_request_locations(num_requests):
     request_locations = []

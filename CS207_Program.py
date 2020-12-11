@@ -151,16 +151,8 @@ while program == True:
                 disk.SSTF_time(current_position, track_size, request_sequence)
 
             elif disk_algo == "C":
-                disk.Scan_time(current_position, track_size, seek_rate, request_sequence)
-
-            elif disk_algo == "D":
-                disk.Look_time(current_position, track_size, seek_rate, request_sequence)
-
-            elif disk_algo == "E":
-                disk.CScan_time(current_position, track_size, seek_rate, request_sequence)
-
-            elif disk_algo == "F":
-                disk.CLook_time(current_position, track_size, seek_rate, request_sequence)
+                direction = input("Input direction (Left | Right):")
+                disk.Scan_time(head, direction, track_size, seek_rate, request_sequence)
 
             elif disk_algo == "G":
                 again = input("Input Again (y/n)? ")

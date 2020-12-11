@@ -47,7 +47,7 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         completion_time.append(0)
         turnaround_time.append(0)
         waiting_time.append(0)
-        processes.append(0)
+        processes.append(i+1)
     
     remain_time = burst_time.copy()
     remain_process = num_processes
@@ -68,6 +68,9 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
             exec_time += quantum
         
         if flag == 1 and remain_time[i] == 0:
+            print("Process \t Turnaround Time \t Waiting Time", i+1, exec_time - arrival_time[i], exec_time - arrival_time[i] - burst_time[i])
+            turnaround_time[i] = exec_time - arrival_time[i]
+            waiting_time[i] = exec_time - arrival_time[i] - burst_time[i]
             total_waiting_time += exec_time - arrival_time[i] - burst_time[i]
             total_turnaround_time += exec_time - arrival_time[i]
             flag = 0
@@ -82,6 +85,10 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         else:
             i = 0
 
+    print("\n")
+    print("Waiting Time \t Turnaround Time")
+    for i in range(0, num_processes):
+        print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", (total_waiting_time/num_processes))
     print("Average Turnaround Time: ", (total_turnaround_time/num_processes))
 

@@ -99,6 +99,7 @@ while program == True:
                 elif algorithm == "B":
                     quantum = int(input("Input time slice: "))
                     pre.RR_time(num_process, arrival_time, burst_time, quantum)
+                    program = False
                 
                 elif algorithm == "D":
                     again = input("Input Again (y/n)? ")

@@ -36,28 +36,35 @@ def SSTF_time(current_position, track_size, request_sequence):
     if(len(request_sequence)==0):
         return
     num_request = len(request_sequence)
-    difference = [0]*1
+    difference = [0]*num_request
     
+    #to initialize array
     for i in range(num_request): 
-        difference[i] = [0, 0]
+        difference[i] = [0,0]
+
     
-    head_movement = 0
+    head_movement = 0       
+    average_seek_time = 0
     seek_sequence = [0]*(num_request+1)
     
     for i in range(num_request):
         seek_sequence[i] = current_position
         get_difference(request_sequence, current_position, difference)
         index = find_shortest_distance(difference)
+        
         difference[index][1] = True
         head_movement += difference[index][0]
-
+        average_seek_time = head_movement/num_request
+        
+        current_position = request_sequence[index]
+        
     seek_sequence[len(seek_sequence)-1] = current_position
+    
     print("Total head movement: ", head_movement)   
     print("Seek sequence is: ",seek_sequence)
-    
     for i in range(num_request+1):
         print(seek_sequence[i])
-   
+    print("Seek Time:", average_seek_time)
 
 def Scan_time(current_position, track_size, seek_rate, request_sequence):  
     pass

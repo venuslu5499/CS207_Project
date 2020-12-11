@@ -51,12 +51,15 @@ def input_nonpre_scheduling_algorithm():
     algorithm = input("Enter Choice: ")
     return algorithm
 
-
-def input_request_sequence(num_request):
+def input_request_sequence(num_request, track_size):
     request_sequence = []
     for i in range(1, num_request+1):
-        location = input("Loc "+str(i)+": ")
-        request_sequence.append(int(location))
+        location = int(input("Loc "+str(i)+": "))
+        if location > track_size:
+            print("Please enter a location smaller than entered track size.")
+            location = input("Loc "+str(i)+": ")
+        else:
+            request_sequence.append(int(location))   
     return request_sequence
 
 
@@ -138,13 +141,13 @@ while program == True:
         if num_request > 10:
             print("The program will only be accepting a maximum of 10 requests.")
         else:
-            request_sequence = input_request_sequence(num_request)
+            request_sequence = input_request_sequence(num_request, track_size)
             disk_algo = input_disk_scheduling_algorithm()  #Choose the disk scheduling type
             if disk_algo == "A":
                 disk.FCFS_time(current_position, track_size, seek_rate, request_sequence)
 
             elif disk_algo == "B":
-                disk.SSTF_time(current_position, track_size, seek_rate, request_sequence)
+                disk.SSTF_time(current_position, track_size, request_sequence)
 
             elif disk_algo == "C":
                 disk.Scan_time(current_position, track_size, seek_rate, request_sequence)

@@ -16,20 +16,20 @@ def find_shortest_distance(difference):
             index = i 
     return index   
 
-def FCFS_time(num_requests, current_position, request_locations):
+def FCFS_time(num_request, current_position, request_sequence):
     seek_count = 0
     distance, current_track = 0, 0
     head_movement = []
 
-    for i in range(num_requests):
-        current_track = request_locations[i] 
+    for i in range(num_request):
+        current_track = request_sequence[i] 
         distance = abs(current_track - current_position);
         head_movement.append(distance)
         seek_count += distance
         current_position = current_track
     
     print("Total Head Movement: ", sum(head_movement))
-    print("Seek Time: ", (seek_count/num_requests))
+    print("Seek Time: ", (seek_count/num_request))
 
 
 def SSTF_time(current_position, track_size, request_sequence): 
@@ -65,9 +65,11 @@ def SSTF_time(current_position, track_size, request_sequence):
     #   print(seek_sequence[i])
     print("Seek Time:", average_seek_time)
 
-def Scan_time(head, direction, track_size, request_sequence):  
+def Scan_time(current_position, direction, track_size, request_sequence):  
     num_request = len(request_sequence)
-    head_movement, distance, current_position = 0,0,0
+    seek_count = 0
+    distance, current_track = 0, 0
+    head_movement = []
     left = []
     right = []
     seek_sequence = []
@@ -78,33 +80,39 @@ def Scan_time(head, direction, track_size, request_sequence):
         right.append(track_size-1)
 
     for i in range(num_request):
-        if (request_sequence[i] < head):
+        if (request_sequence[i] < current_position):
             left.append(request_sequence[i])
-        if (request_sequence[i] > head):
+        if (request_sequence[i] > current_position):
             right.append(request_sequence[i])
+
     left.sort()
     right.sort()
     run = 2
     while(run != 0):
         if(direction == "left"):
             for i in range(len(left)-1,-1,-1):
-                current_position = left[i]
-                seek_sequence.append(current_position)
-                distance = abs(current_position-head)
-                head_movement += distance
-                head = current_position
-            direction == "right"
+                current_track = left[i]
+                seek_sequence.append(current_track)
+                distance = abs(current_track-current_position)
+                head_movement.append(distance)
+                seek_count += distance
+                current_position = current_track
+            direction = "right"
+
         elif (direction == "right"):
             for i in range(len(right)):
-                current_position = right[i]
-                seek_sequence.append(current_position)
-                distance = abs(current_position - head)
-                head_movement += distance
-                head = current_position
+                current_track = right[i]
+                seek_sequence.append(current_track)
+                distance = abs(current_track - current_position)
+                head_movement.append(distance)
+                seek_count += distance
+                current_position = current_track
             direction = "left"
+
         run -= 1
-    average_seek_time = head_movement/len(request_sequence)
-    print("Total head movement: ", head_movement)
+
+    average_seek_time = (seek_count/num_request)
+    print("Total head movement: ", sum(head_movement))
     print("Seek sequence: ")
     for i in range(len(seek_sequence)):
         print(seek_sequence[i])

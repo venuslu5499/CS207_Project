@@ -147,8 +147,9 @@ while program == True:
         else:
             request_sequence = input_request_sequence(num_request, track_size)
             disk_algo = input_disk_scheduling_algorithm()  #Choose the disk scheduling type
+            
             if disk_algo == "A":
-                disk.FCFS_time(current_position, track_size, seek_rate, request_sequence)
+                disk.FCFS_time(num_request, current_position, request_sequence)
 
             elif disk_algo == "B":
                 disk.SSTF_time(current_position, track_size, request_sequence)

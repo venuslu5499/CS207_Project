@@ -113,8 +113,8 @@ def Scan_time(current_position, direction, track_size, request_sequence):
 
     average_seek_time = (seek_count/num_request)
     print("Total head movement: ", sum(head_movement))
-    print("Seek sequence: ")
-    for i in range(len(seek_sequence)):
-        print(seek_sequence[i])
+    #print("Seek sequence: ")
+   # for i in range(len(seek_sequence)):
+        #print(seek_sequence[i])
     print("Seek time: ", average_seek_time)
 

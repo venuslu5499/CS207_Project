@@ -70,6 +70,7 @@ def Scan_time(head, direction, track_size, request_sequence):
     head_movement, distance, current_position = 0,0,0
     left = []
     right = []
+    seek_sequence = []
     
     if direction == "left":
         left.append(0)
@@ -88,7 +89,7 @@ def Scan_time(head, direction, track_size, request_sequence):
         if(direction == "left"):
             for i in range(len(left)-1,-1,-1):
                 current_position = left[i]
-                request_sequence.append(current_position)
+                seek_sequence.append(current_position)
                 distance = abs(current_position-head)
                 head_movement += distance
                 head = current_position
@@ -96,37 +97,16 @@ def Scan_time(head, direction, track_size, request_sequence):
         elif (direction == "right"):
             for i in range(len(right)):
                 current_position = right[i]
-                request_sequence.append(current_position)
+                seek_sequence.append(current_position)
                 distance = abs(current_position - head)
                 head_movement += distance
                 head = current_position
             direction = "left"
         run -= 1
-    average_seek_time = head_movement/request_sequence
+    average_seek_time = head_movement/len(request_sequence)
     print("Total head movement: ", head_movement)
     print("Seek sequence: ")
-    for i in range(len(request_sequence)):
-        print(request_sequence[i])
+    for i in range(len(seek_sequence)):
+        print(seek_sequence[i])
     print("Seek time: ", average_seek_time)
-        
 
-def input_request_locations(num_requests):
-    request_locations = []
-    print("Input Individual Request Location")
-    for i in range(1, num_requests+1):
-        req = input("Loc" +str(i) +": ")
-        request_locations.append(int(req))
-    return request_locations
-
-# program = True
-# while program == True:
-#     num_requests = int(input("Input no. of requests [max. of 10]: "))
-#     if num_requests < 1 or num_requests > 10:
-#         print("Must be a number between 1-10")
-#     else:
-#         current_position = int(input("Input current position: "))
-#         track_size = int(input("Input track size: "))
-#         seek_rate = int(input("Input seek rate: "))
-#         request_locations = input_request_locations(num_requests)
-#         FCFS_time(num_requests, current_position, request_locations)
-#     program = False

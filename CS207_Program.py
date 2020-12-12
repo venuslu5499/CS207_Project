@@ -155,7 +155,7 @@ while program == True:
 
             elif disk_algo == "C":
                 direction = input("Input direction (Left | Right):")
-                disk.Scan_time(head, direction, track_size, seek_rate, request_sequence)
+                disk.Scan_time(current_position, direction, track_size, request_sequence)
 
             elif disk_algo == "G":
                 again = input("Input Again (y/n)? ")

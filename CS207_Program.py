@@ -1,4 +1,5 @@
 import math
+import sys
 import CS207_Preemptive_Algorithms as pre
 import CS207_NonPreemptive_Algorithms as nonpre
 import CS207_DiskSched_Algorithms as disk
@@ -51,13 +52,17 @@ def input_nonpre_scheduling_algorithm():
     algorithm = input("Enter Choice: ")
     return algorithm
 
-def input_request_sequence(num_request, track_size):
+def input_request_sequence(num_request, track_size, program):
     request_sequence = []
     for i in range(1, num_request+1):
         location = int(input("Loc "+str(i)+": "))
         if location > track_size:
             print("Please enter a location smaller than entered track size.")
-            location = input("Loc "+str(i)+": ")
+            location = int(input("Loc "+str(i)+": "))
+            if location > track_size:
+                sys.exit("Only location smaller than entered track size is valid.")
+            else:
+                request_sequence.append(int(location))
         else:
             request_sequence.append(int(location))   
     return request_sequence
@@ -145,7 +150,7 @@ while program == True:
         if num_request > 10:
             print("The program will only be accepting a maximum of 10 requests.")
         else:
-            request_sequence = input_request_sequence(num_request, track_size)
+            request_sequence = input_request_sequence(num_request, track_size, program)
             disk_algo = input_disk_scheduling_algorithm()  #Choose the disk scheduling type
             
             if disk_algo == "A":

@@ -60,7 +60,7 @@ def input_request_sequence(num_request, track_size, program):
             print("Please enter a location smaller than entered track size.")
             location = int(input("Loc "+str(i)+": "))
             if location > track_size:
-                sys.exit("Only location smaller than entered track size is valid.")
+                sys.exit("\nERROR: Only location smaller than entered track size is valid.")
             else:
                 request_sequence.append(int(location))
         else:
@@ -73,9 +73,6 @@ def input_disk_scheduling_algorithm():
           + "[A] First Come First Serve (FCFS) \n"
           + "[B] Shortest Seek Time First (SSTF) \n"
           + "[C] Scan \n"
-          + "[D] Look \n"
-          + "[E] Circular Scan (CSCAN) \n"
-          + "[F] Circular Look (CLOOK) \n"
           + "[G] Exit ")
     disk_sched_algorithm = input("Enter Choice: ")
     return disk_sched_algorithm

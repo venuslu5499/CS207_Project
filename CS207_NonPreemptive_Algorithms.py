@@ -4,14 +4,25 @@ import numpy as np
 completion_time = []
 turnaround_time = []
 waiting_time = []
-processes = []
+
+completion_time_resorted = []
+waiting_time_resorted = []
+turnaround_time_resorted = []
+
+def clear_list(completion_time, turnaround_time, waiting_time):
+    completion_time.clear()
+    turnaround_time.clear()
+    waiting_time.clear()
 
 def FCFS_time(num_processes, arrival_time, burst_time): 
+    idx = []
+    idx = arrival_time.copy()
+
     for i in range(num_processes):
         completion_time.append(0)
         turnaround_time.append(0)
         waiting_time.append(0)
-    
+        
     for i in range(num_processes): 
         for j in range(num_processes):
             if arrival_time[i] < arrival_time[j]:
@@ -30,14 +41,25 @@ def FCFS_time(num_processes, arrival_time, burst_time):
         completion_time[i] = burst_time[i] + completion_time[i-1]
         turnaround_time[i] = completion_time[i] - arrival_time[i]
         waiting_time[i] = turnaround_time[i] - burst_time[i]
-    
-    print(completion_time)
-    print(waiting_time)
-    print(turnaround_time)
+
+    for i in range(num_processes):
+        for j in range(num_processes):
+            if idx[i] == arrival_time[j]:
+                completion_time_resorted.append(completion_time[j])
+                waiting_time_resorted.append(waiting_time[j])
+                turnaround_time_resorted.append(turnaround_time[j])
+                arrival_time[j] = -9999
+
+    print(completion_time_resorted)
+    print(waiting_time_resorted)
+    print(turnaround_time_resorted)
     print(sum(waiting_time)/len(waiting_time))
     print(sum(turnaround_time)/len(turnaround_time))
+    clear_list(completion_time, turnaround_time, waiting_time)
 
 def SJF_time(num_processes, arrival_time, burst_time):  
+    idx = []
+    idx = burst_time.copy()
     for i in range(num_processes):
         completion_time.append(0)
         turnaround_time.append(0)
@@ -71,12 +93,14 @@ def SJF_time(num_processes, arrival_time, burst_time):
                     burst_time[k] = burst_time[i]
                     burst_time[i] = temp
             k=+1
-
     elif result == True:
         limit = num_processes-1
         for i in range(limit):
             for j in range(limit):
                 if burst_time[j] > burst_time[j+1]:
+                    temp = arrival_time[j]
+                    arrival_time[j] = arrival_time[j+1]
+                    arrival_time[j+1] = temp
                     temp = burst_time[j]
                     burst_time[j] = burst_time[j+1]
                     burst_time[j+1] = temp
@@ -90,13 +114,24 @@ def SJF_time(num_processes, arrival_time, burst_time):
         turnaround_time[i] = completion_time[i] - arrival_time[i]
         waiting_time[i] = turnaround_time[i] - burst_time[i]
 
-    print(completion_time)
-    print(waiting_time)
-    print(turnaround_time)
+    for i in range(num_processes):
+        for j in range(num_processes):
+            if idx[i] == burst_time[j]:
+                completion_time_resorted.append(completion_time[j])
+                waiting_time_resorted.append(waiting_time[j])
+                turnaround_time_resorted.append(turnaround_time[j])
+                arrival_time[j] = -9999
+
+    print(completion_time_resorted)
+    print(waiting_time_resorted)
+    print(turnaround_time_resorted)
     print(sum(waiting_time)/len(waiting_time))
     print(sum(turnaround_time)/len(turnaround_time))
+    clear_list(completion_time, turnaround_time, waiting_time)
 
 def Prio_time(num_processes, arrival_time, burst_time, priority):  
+    idx = []
+    idx = arrival_time.copy()
     for i in range(num_processes):
         completion_time.append(0)
         turnaround_time.append(0)
@@ -105,10 +140,10 @@ def Prio_time(num_processes, arrival_time, burst_time, priority):
     for i in range(num_processes):
         limit = num_processes-i-1
         for j in range(limit):
-            if arrival_time[j] > arrival_time[j+1]: #check arrival time first
+            if priority[j] > priority[j+1]: #check priority
                 temp = arrival_time[j]
                 arrival_time[j] = arrival_time[j+1]
-                arrival_time[j+1] = temp
+                arrival_time[j+1] = temp                
                 temp = burst_time[j]
                 burst_time[j] = burst_time[j+1]
                 burst_time[j+1] = temp
@@ -116,10 +151,10 @@ def Prio_time(num_processes, arrival_time, burst_time, priority):
                 priority[j] = priority[j+1]
                 priority[j+1] = temp
 
-            if priority[j] > priority[j+1]: #check priority
+            if arrival_time[j] > arrival_time[j+1]: #check arrival time first
                 temp = arrival_time[j]
                 arrival_time[j] = arrival_time[j+1]
-                arrival_time[j+1] = temp                
+                arrival_time[j+1] = temp
                 temp = burst_time[j]
                 burst_time[j] = burst_time[j+1]
                 burst_time[j+1] = temp
@@ -136,10 +171,19 @@ def Prio_time(num_processes, arrival_time, burst_time, priority):
         turnaround_time[i] = completion_time[i] - arrival_time[i]
         waiting_time[i] = turnaround_time[i] - burst_time[i]
 
-    print(completion_time)
-    print(waiting_time)
-    print(turnaround_time)
+    for i in range(num_processes):
+        for j in range(num_processes):
+            if idx[i] == arrival_time[j]:
+                completion_time_resorted.append(completion_time[j])
+                waiting_time_resorted.append(waiting_time[j])
+                turnaround_time_resorted.append(turnaround_time[j])
+                arrival_time[j] = -9999
+
+    print(completion_time_resorted)
+    print(waiting_time_resorted)
+    print(turnaround_time_resorted)
     print(sum(waiting_time)/len(waiting_time))
     print(sum(turnaround_time)/len(turnaround_time))
+    clear_list(completion_time, turnaround_time, waiting_time)
 
 

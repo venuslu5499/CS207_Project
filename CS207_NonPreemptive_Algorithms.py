@@ -50,11 +50,11 @@ def FCFS_time(num_processes, arrival_time, burst_time):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print(completion_time_resorted)
-    print(waiting_time_resorted)
-    print(turnaround_time_resorted)
-    print(sum(waiting_time)/len(waiting_time))
-    print(sum(turnaround_time)/len(turnaround_time))
+    print("Waiting Time \t Turnaround Time")
+    for i in range(0, num_processes):
+        print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
+    print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
+    print("Average Turnaround Time: ", sum(turnaround_time)/len(turnaround_time))
     clear_list(completion_time, turnaround_time, waiting_time)
 
 def SJF_time(num_processes, arrival_time, burst_time):  
@@ -122,11 +122,11 @@ def SJF_time(num_processes, arrival_time, burst_time):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print(completion_time_resorted)
-    print(waiting_time_resorted)
-    print(turnaround_time_resorted)
-    print(sum(waiting_time)/len(waiting_time))
-    print(sum(turnaround_time)/len(turnaround_time))
+    print("Waiting Time \t Turnaround Time")
+    for i in range(0, num_processes):
+        print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
+    print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
+    print("Average Turnaround Time: ", sum(turnaround_time)/len(turnaround_time))
     clear_list(completion_time, turnaround_time, waiting_time)
 
 def Prio_time(num_processes, arrival_time, burst_time, priority):  
@@ -179,11 +179,11 @@ def Prio_time(num_processes, arrival_time, burst_time, priority):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print(completion_time_resorted)
-    print(waiting_time_resorted)
-    print(turnaround_time_resorted)
-    print(sum(waiting_time)/len(waiting_time))
-    print(sum(turnaround_time)/len(turnaround_time))
+    print("Waiting Time \t Turnaround Time")
+    for i in range(0, num_processes):
+        print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
+    print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
+    print("Average Turnaround Time: ", sum(turnaround_time)/len(turnaround_time))
     clear_list(completion_time, turnaround_time, waiting_time)
 
 

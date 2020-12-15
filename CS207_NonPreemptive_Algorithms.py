@@ -50,7 +50,7 @@ def FCFS_time(num_processes, arrival_time, burst_time):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
@@ -122,7 +122,7 @@ def SJF_time(num_processes, arrival_time, burst_time):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
@@ -179,7 +179,7 @@ def Prio_time(num_processes, arrival_time, burst_time, priority):
                 turnaround_time_resorted.append(turnaround_time[j])
                 arrival_time[j] = -9999
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))

@@ -42,7 +42,7 @@ def SRTF_time(num_processes, arrival_time, burst_time):
             turnaround_time[smallest] = end - arrival_time[smallest]
         time = time + 1
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))
@@ -89,7 +89,7 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         else:
             i = 0
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", (total_waiting_time/num_processes))
@@ -137,7 +137,7 @@ def P_Prio_time(num_processes, arrival_time, burst_time, priority):
         turnaround_time[i] = completion_time[i] - arrival_time[i]
         waiting_time[i] = turnaround_time[i] - burst_time[i]
 
-    print("Waiting Time \t Turnaround Time")
+    print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
     print("Average Waiting Time: ", sum(waiting_time)/len(waiting_time))

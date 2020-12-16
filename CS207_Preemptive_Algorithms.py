@@ -1,4 +1,5 @@
 import math
+import CS207_NonPreemptive_Algorithms as nonpre
 
 completion_time = []
 turnaround_time = []
@@ -47,7 +48,6 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         completion_time.append(0)
         turnaround_time.append(0)
         waiting_time.append(0)
-        processes.append(i+1)
     
     remain_time = burst_time.copy()
     remain_process = num_processes
@@ -69,9 +69,9 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         if flag == 1 and remain_time[i] == 0:
 
             turnaround_time[i] = exec_time - arrival_time[i]
-            waiting_time[i] = exec_time - arrival_time[i] - burst_time[i]
-            total_waiting_time += exec_time - arrival_time[i] - burst_time[i]
-            total_turnaround_time += exec_time - arrival_time[i]
+            waiting_time[i] = turnaround_time[i] - burst_time[i]
+            total_waiting_time += waiting_time[i]
+            total_turnaround_time += turnaround_time[i]
             flag = 0
             remain_process -= 1
         
@@ -88,7 +88,10 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
     print("Average Waiting Time: ", (total_waiting_time/num_processes))
     print("Average Turnaround Time: ", (total_turnaround_time/num_processes))
 
-def P_Prio_time(num_processes, arrival_time, burst_time, priority):  
+def P_Prio_time(num_processes, arrival_time, burst_time, priority):
+    completion_time = []
+    turnaround_time = []
+    waiting_time = []  
     for i in range(num_processes):
         completion_time.append(0)
         turnaround_time.append(0)
@@ -120,17 +123,23 @@ def P_Prio_time(num_processes, arrival_time, burst_time, priority):
                     priority[j] = priority[j+1]
                     priority[j+1] = temp
 
-    completion_time[0] = arrival_time[0] + burst_time[0]
-    turnaround_time[0] = completion_time[0] - arrival_time[0]
-    waiting_time[0] = turnaround_time[0] - burst_time[0]
-
-    for i in range(1, num_processes):
+    for i in range(num_processes):
         completion_time[i] = burst_time[i] + completion_time[i-1]
         turnaround_time[i] = completion_time[i] - arrival_time[i]
         waiting_time[i] = turnaround_time[i] - burst_time[i]
 
-    print(completion_time)
-    print(waiting_time)
-    print(turnaround_time)
-    print(sum(waiting_time)/len(waiting_time))
-    print(sum(turnaround_time)/len(turnaround_time))
+    total_turnaround_time, total_waiting_time = None, None
+    total_waiting_time = sum(waiting_time)/num_processes
+    total_turnaround_time = sum(turnaround_time)/num_processes
+
+    print("Waiting Time \t Turnaround Time")
+    for i in range(0, num_processes):
+        print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))
+    print("Average Waiting Time: ", (total_waiting_time))
+    print("Average Turnaround Time: ", (total_turnaround_time))
+
+    # print(completion_time)
+    # print(waiting_time)
+    # print(turnaround_time)
+    # print(sum(waiting_time)/len(waiting_time))
+    # print(sum(turnaround_time)/len(turnaround_time))

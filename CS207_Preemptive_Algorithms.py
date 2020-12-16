@@ -104,39 +104,27 @@ def P_Prio_time(num_processes, arrival_time, burst_time, priority):
         processes.append(0)
 
     for i in range(num_processes):
-        for j in range(num_processes-1):
-            if arrival_time[j] > arrival_time[j+1]:
-                temp = arrival_time[j]
-                arrival_time[j] = arrival_time[j+1]
-                arrival_time[j+1] = temp
-                temp = burst_time[j]
-                burst_time[j] = burst_time[j+1]
-                burst_time[j+1] = temp
-                temp = priority[j]
-                priority[j] = priority[j+1]
-                priority[j+1] = temp
+        processes[i] = burst_time[i]
+
+    priority.append(-1)
+    count = 0
+    time = 0
+    while count != num_processes:
+        smallest = num_processes
+        for i in range(num_processes):
+            if arrival_time[i] <= time and priority[i] > priority[smallest] and burst_time[i] > 0:
+                smallest = i
+        burst_time[smallest] = burst_time[smallest] - 1
+
+        if burst_time[smallest] == 0:
+            count = count + 1
+            end = time + 1
+            completion_time[smallest] = end
+            waiting_time[smallest] = end - arrival_time[smallest] - processes[smallest]
+            turnaround_time[smallest] = end - arrival_time[smallest]
+        
+        time = time + 1
             
-            if arrival_time[j] == arrival_time[j+1]:
-                if priority[j] > priority[j+1]:
-                    temp = arrival_time[j]
-                    arrival_time[j] = arrival_time[j+1]
-                    arrival_time[j+1] = temp
-                    temp = burst_time[j]
-                    burst_time[j] = burst_time[j+1]
-                    burst_time[j+1] = temp
-                    temp = priority[j]
-                    priority[j] = priority[j+1]
-                    priority[j+1] = temp
-
-    completion_time[0] = arrival_time[0] + burst_time[0]
-    turnaround_time[0] = completion_time[0] - arrival_time[0]
-    waiting_time[0] = turnaround_time[0] - burst_time[0]
-
-    for i in range(1, num_processes):
-        completion_time[i] = burst_time[i] + completion_time[i-1]
-        turnaround_time[i] = completion_time[i] - arrival_time[i]
-        waiting_time[i] = turnaround_time[i] - burst_time[i]
-
     print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):
         print(str(waiting_time[i]) + "\t\t\t" + str(turnaround_time[i]))

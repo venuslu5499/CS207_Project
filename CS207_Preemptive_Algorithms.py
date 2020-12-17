@@ -1,4 +1,5 @@
 import math
+import CS207_NonPreemptive_Algorithms as nonpre
 
 completion_time = []
 turnaround_time = []
@@ -54,7 +55,6 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         completion_time.append(0)
         turnaround_time.append(0)
         waiting_time.append(0)
-        processes.append(i+1)
     
     remain_time = burst_time.copy()
     remain_process = num_processes
@@ -76,9 +76,9 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
         if flag == 1 and remain_time[i] == 0:
 
             turnaround_time[i] = exec_time - arrival_time[i]
-            waiting_time[i] = exec_time - arrival_time[i] - burst_time[i]
-            total_waiting_time += exec_time - arrival_time[i] - burst_time[i]
-            total_turnaround_time += exec_time - arrival_time[i]
+            waiting_time[i] = turnaround_time[i] - burst_time[i]
+            total_waiting_time += waiting_time[i]
+            total_turnaround_time += turnaround_time[i]
             flag = 0
             remain_process -= 1
         

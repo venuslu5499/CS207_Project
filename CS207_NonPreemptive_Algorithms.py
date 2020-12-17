@@ -23,7 +23,7 @@ def FCFS_time(num_processes, arrival_time, burst_time):
         turnaround_time.append(0)
         waiting_time.append(0)
         
-    for i in range(num_processes):  #sort according to arrival
+    for i in range(num_processes):  #sort according to arrival 
         for j in range(num_processes):
             if arrival_time[i] < arrival_time[j]:
                 temp = arrival_time[j]

@@ -23,7 +23,7 @@ def FCFS_time(num_processes, arrival_time, burst_time):
         turnaround_time.append(0)
         waiting_time.append(0)
         
-    for i in range(num_processes): 
+    for i in range(num_processes):  #sort according to arrival
         for j in range(num_processes):
             if arrival_time[i] < arrival_time[j]:
                 temp = arrival_time[j]
@@ -66,7 +66,7 @@ def SJF_time(num_processes, arrival_time, burst_time):
         waiting_time.append(0)
     
     for i in range(num_processes):
-        for j in range(i+1, num_processes):
+        for j in range(i+1, num_processes): #sort according to arrival
             if arrival_time[i] > arrival_time[j]:
                 temp = arrival_time[j]
                 arrival_time[j] = arrival_time[i]
@@ -76,7 +76,7 @@ def SJF_time(num_processes, arrival_time, burst_time):
                 burst_time[i] = temp
 
     for i in range(num_processes):
-        for j in range(i+1, num_processes):
+        for j in range(i+1, num_processes): #sort according to arrival
             if arrival_time[i] == arrival_time[j]:
                 if burst_time[i] > burst_time[j]:
                     temp = arrival_time[j]

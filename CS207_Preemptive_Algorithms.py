@@ -96,34 +96,45 @@ def RR_time(num_processes, arrival_time, burst_time, quantum):
     print("Average Turnaround Time: ", (total_turnaround_time/num_processes))
     clear_list(completion_time, turnaround_time, waiting_time, processes)
 
-def P_Prio_time(num_processes, arrival_time, burst_time, priority):  
+def P_Prio_time(num_processes, arrival_time, burst_time, priority):
+    status = [] 
+    burst_remaining = burst_time.copy() 
     for i in range(num_processes):
         completion_time.append(0)
         turnaround_time.append(0)
         waiting_time.append(0)
-        processes.append(0)
+        status.append(0)
 
-    for i in range(num_processes):
-        processes[i] = burst_time[i]
+    current_time = 0
+    completed = 0
+    prev = 0
 
-    priority.append(-1)
-    count = 0
-    time = 0
-    while count != num_processes:
-        smallest = num_processes
+    while completed != num_processes:
+        idx = -1
+        mx = 9999
         for i in range(num_processes):
-            if arrival_time[i] <= time and priority[i] > priority[smallest] and burst_time[i] > 0:
-                smallest = i
-        burst_time[smallest] = burst_time[smallest] - 1
-
-        if burst_time[smallest] == 0:
-            count = count + 1
-            end = time + 1
-            completion_time[smallest] = end
-            waiting_time[smallest] = end - arrival_time[smallest] - processes[smallest]
-            turnaround_time[smallest] = end - arrival_time[smallest]
+            if arrival_time[i] <= current_time and status[i] == 0:
+                if priority[i] < mx:
+                    mx = priority[i]
+                    idx = i
+                if priority[i] == mx:
+                    if arrival_time[i] < arrival_time[idx]:
+                        mx = priority[i]
+                        idx = i
         
-        time = time + 1
+        if idx != -1:
+            burst_remaining[idx] -= 1
+            current_time = current_time + 1
+            prev = current_time
+
+            if burst_remaining[idx] == 0:
+                completion_time[idx] = current_time
+                turnaround_time[idx] = completion_time[idx] - arrival_time[idx]
+                waiting_time[idx] = turnaround_time[idx] - burst_time[idx]
+                status[idx] = 1
+                completed = completed + 1
+        else:
+            current_time = current_time + 1
             
     print("\nWaiting Time \t Turnaround Time")
     for i in range(0, num_processes):

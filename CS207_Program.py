@@ -141,7 +141,6 @@ while program == True:
     elif scheduling == "2":
         current_position = int(input("Input current position: "))
         track_size = int(input("Input track size: "))
-        seek_rate = int(input("Input seek rate: "))
         num_request = int(input("Input number of request [max of 10]: "))
 
         if num_request > 10:

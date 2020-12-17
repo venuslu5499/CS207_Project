@@ -36,7 +36,7 @@ def SSTF_time(current_position, track_size, request_sequence):
     if(len(request_sequence)==0):
         return
     num_request = len(request_sequence)
-    difference = [0]*num_request
+    difference = [0]*num_request                #initializes all elements in the array with '0'.
     
     #to initialize array
     for i in range(num_request): 
@@ -44,22 +44,25 @@ def SSTF_time(current_position, track_size, request_sequence):
     
     head_movement = 0       
     average_seek_time = 0
-    seek_sequence = [0]*(num_request+1)
+    seek_sequence = [0]*(num_request+1)                                 #initialize seek sequence array with '0'
     
     for i in range(num_request):
-        seek_sequence[i] = current_position
-        get_difference(request_sequence, current_position, difference)
-        index = find_shortest_distance(difference)
+        seek_sequence[i] = current_position                     
+        get_difference(request_sequence, current_position, difference)  #finds the minimum difference 
+        index = find_shortest_distance(difference)                      #returns the index of the 
         
-        difference[index][1] = True
-        head_movement += difference[index][0]
+        difference[index][1] = True                           
+        head_movement += difference[index][0]                           #solves for total head movement --  inaadd yung differences
         average_seek_time = head_movement/num_request
         
         current_position = request_sequence[index]
         
-    seek_sequence[len(seek_sequence)-1] = current_position
+    seek_sequence[len(seek_sequence)-1] = current_position              #adds the current position(yung navisit) to the seek sequence
     
     print("Total head movement: ", head_movement)   
+    print("Seek sequence is: ",seek_sequence)
+    for i in range(num_request+1):
+       print(seek_sequence[i])
     print("Seek Time:", average_seek_time)
 
 def Scan_time(current_position, direction, track_size, request_sequence):  
@@ -76,9 +79,9 @@ def Scan_time(current_position, direction, track_size, request_sequence):
     elif direction == "right":
         right.append(track_size-1)
 
-    for i in range(num_request):
-        if (request_sequence[i] < current_position):
-            left.append(request_sequence[i])
+    for i in range(num_request):                                #if the track is bigger than the current position
+        if (request_sequence[i] < current_position):            #it gets appended to the right[] array, else 
+            left.append(request_sequence[i])                    #append to left[] array
         if (request_sequence[i] > current_position):
             right.append(request_sequence[i])
 
@@ -110,5 +113,8 @@ def Scan_time(current_position, direction, track_size, request_sequence):
 
     average_seek_time = (seek_count/num_request)
     print("Total head movement: ", sum(head_movement))
+    print("Seek sequence: ")
+    for i in range(len(seek_sequence)):
+        print(seek_sequence[i])
     print("Seek time: ", average_seek_time)
 
